@@ -13,7 +13,8 @@ const props = defineProps({
 
 const updateAnswer = (event) => {
   const answers = props.step.answers;
-  answers[props.index].answer = event.target.innerText;
+  answers[props.index].answer = event.target.value;
+  event.target.style.width = (event.target.value.length + 2) + 'ch';
   const step = {
     ...props.step,
     answers,
@@ -30,18 +31,21 @@ const removeAnswer = () => {
   };
   emit('updateStep', step);
 };
+
+const vFocus = {
+  mounted: (el) => el.focus()
+}
 </script>
 
 <template>
   <div class="answer-section">
-    <div
-      class="selectable input"
-      contenteditable="true"
-      role="textbox"
-      @input="updateAnswer"
-    >
-      {{ step.answers[index].answer }}
-    </div>
+    <input
+      class="selectable"
+      type="text"
+      :value="step.answers[index].answer"
+      @change="updateAnswer"
+      v-focus
+    />
     <div
       class="remove"
       @click="removeAnswer"
@@ -59,17 +63,18 @@ const removeAnswer = () => {
   position: relative;
 }
 
-div.input {
+input {
   background: var(--color-background);
   color: var(--color-text);
   font-size: inherit;
   border: none;
   resize: none;
-  width: 100%;
+  min-width: 5rem;
+  max-width: 95%;
   font-family: inherit;
 }
 
-div.input:before {
+.remove:before {
   content: 'A:';
   position: absolute;
   left: -1.5rem;
