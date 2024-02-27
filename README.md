@@ -1,7 +1,7 @@
 # To execute
 1. Clone the repo `git clone git@github.com:watsonben/scriptr.git`
 2. Change to the new directory `cd scriptr`
-3. Install dependencies `npm i`
+3. Install dependencies `yarn`
 4. Run the app `yarn dev`
 5. Go to the local site where it is being run (usually `localhost:8000` or `localhost:5173`)
 
